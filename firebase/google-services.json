@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1006630894710",
+    "project_id": "kary-95ae6-a5e60",
+    "storage_bucket": "kary-95ae6-a5e60.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006630894710:android:46d12107245aedb6697357",
+        "android_client_info": {
+          "package_name": "com.mofeed.karti"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDHD_rXKgeFxKuB4QqHdlTQ-7j5PsacnE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
