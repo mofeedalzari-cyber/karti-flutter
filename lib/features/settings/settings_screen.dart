@@ -2,12 +2,11 @@
 // احتياطي/استعادة، ومنطقة الخطر (مسح البيانات). كل العمليات مباشرة عبر
 // Supabase بدون أي سيرفر وسيط (راجع backup_providers.dart لتفاصيل السبب).
 import 'dart:convert';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:path_provider/path_provider.dart';
-import 'dart:io';
 import '../../services/supabase_service.dart';
 import '../auth/profile_provider.dart';
 import '../backup/backup_providers.dart';
@@ -143,11 +142,14 @@ class _BackupRestoreCardState extends State<_BackupRestoreCard> {
     try {
       final data = widget.isAdmin ? await backupMyNetwork() : await backupMyAgentData();
       final json = backupToJsonString(data);
-      final dir = await getTemporaryDirectory();
       final name = 'karti-backup-${DateTime.now().millisecondsSinceEpoch}.json';
-      final file = File('${dir.path}/$name');
-      await file.writeAsString(json);
-      if (mounted) await Share.shareXFiles([XFile(file.path)], text: 'نسخة احتياطية — كرتي');
+      final bytes = Uint8List.fromList(utf8.encode(json));
+      if (mounted) {
+        await Share.shareXFiles(
+          [XFile.fromData(bytes, name: name, mimeType: 'application/json')],
+          text: 'نسخة احتياطية — كرتي',
+        );
+      }
     } catch (e) {
       if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('فشل النسخ الاحتياطي: $e')));
     } finally {

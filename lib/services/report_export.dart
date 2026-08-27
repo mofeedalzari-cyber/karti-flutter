@@ -6,10 +6,8 @@
 // أخرى تتطلب ترخيصاً تجارياً — عكس استخراج نص PDF (راجع pdf_extract.dart)
 // اللي يحتاج Syncfusion لأنه ما فيه بديل مجاني موثوق بنفس الجودة لهذي المهمة
 // المحددة (قراءة/تحليل PDF)، بينما إنشاء Excel من الصفر له بدائل مجانية جيدة.
-import 'dart:io';
 import 'dart:typed_data';
 import 'package:excel/excel.dart' as xls;
-import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -160,16 +158,22 @@ Uint8List buildReportExcel({
   return Uint8List.fromList(bytes!);
 }
 
-/// يحفظ ملف Excel بمجلد مؤقت ثم يفتح قائمة المشاركة (نفس نتيجة exportToExcel
-/// بالنسخة الأصلية من ناحية النتيجة النهائية للمستخدم).
+/// يبني ملف Excel ثم يفتح قائمة المشاركة مباشرة من البيانات بالذاكرة (بدون
+/// ملف مؤقت على القرص) — يعمل بنفس الطريقة على الجوال والويب.
 Future<void> exportReportToExcel({
   required String fileName,
   required List<ReportSummaryRow> summary,
   required List<ReportTableSection> sections,
 }) async {
   final bytes = buildReportExcel(summary: summary, sections: sections);
-  final dir = await getTemporaryDirectory();
-  final file = File('${dir.path}/$fileName.xlsx');
-  await file.writeAsBytes(bytes);
-  await Share.shareXFiles([XFile(file.path)], text: fileName);
+  await Share.shareXFiles(
+    [
+      XFile.fromData(
+        bytes,
+        name: '$fileName.xlsx',
+        mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      ),
+    ],
+    text: fileName,
+  );
 }

@@ -45,7 +45,6 @@ dependencies:
   async: ^2.11.0 # لقراءة بروتوكول API الميكروتك الثنائي عبر Socket مباشرة
   syncfusion_flutter_pdf: ^27.2.5 # لاستخراج النص من ملفات PDF المرفوعة (رفع الكروت)
   excel: ^4.0.6 # تصدير تقارير Excel (رخصة MIT، بدون قيود ترخيص خلافاً لـ Syncfusion)
-  path_provider: ^2.1.5 # لحفظ ملف Excel مؤقتاً قبل مشاركته
 
 dev_dependencies:
   flutter_test:
