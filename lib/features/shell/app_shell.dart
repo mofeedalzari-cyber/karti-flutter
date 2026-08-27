@@ -35,7 +35,7 @@ class _AppShellState extends ConsumerState<AppShell> {
   @override
   Widget build(BuildContext context) {
     final profileAsync = ref.watch(profileProvider);
-    final isAdmin = profileAsync.value?.role == Role.admin;
+    final isAdmin = profileAsync.value?.isAdminOrAbove ?? false;
 
     return Scaffold(
       appBar: AppBar(title: Text(_titles[_index])),

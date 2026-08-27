@@ -31,6 +31,11 @@ class Profile {
   final Role? role;
   final bool isSuperadmin;
 
+  /// صلاحيات المدير أو أعلى (سوبر أدمن يشمل كل صلاحيات المدير) — استخدمها
+  /// دائماً لفحوصات الصلاحيات بدل مقارنة `role == Role.admin` وحدها، لأن
+  /// دور السوبر أدمن مُخزَّن كقيمة مستقلة (`Role.superadmin`) وليس `Role.admin`.
+  bool get isAdminOrAbove => role == Role.admin || isSuperadmin;
+
   Profile({
     required this.id,
     required this.username,

@@ -14,7 +14,7 @@ class RequestsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final profileAsync = ref.watch(profileProvider);
     final tab = ref.watch(requestsTabProvider);
-    final isAdmin = profileAsync.value?.role == Role.admin;
+    final isAdmin = profileAsync.value?.isAdminOrAbove ?? false;
 
     return DefaultTabController(
       length: 3,

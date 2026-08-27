@@ -19,8 +19,8 @@ class CardsUploadScreen extends ConsumerWidget {
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (e, _) => Center(child: Text('خطأ: $e')),
       data: (profile) {
-        // هذي الصفحة للمدير فقط — نفس تحقق role !== "admin" بالنسخة الأصلية
-        if (profile?.role != Role.admin) {
+        // هذي الصفحة للمدير (والسوبر أدمن) فقط — نفس تحقق role !== "admin" بالنسخة الأصلية
+        if (profile?.isAdminOrAbove != true) {
           return const Center(child: Text('هذه الصفحة متاحة للمدراء فقط'));
         }
         return const _CardsUploadBody();

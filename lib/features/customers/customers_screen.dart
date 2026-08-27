@@ -15,7 +15,7 @@ class CustomersScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final profileAsync = ref.watch(profileProvider);
-    final isAdmin = profileAsync.value?.role == Role.admin;
+    final isAdmin = profileAsync.value?.isAdminOrAbove ?? false;
     return isAdmin ? const AdminCustomersScreen() : const _MyCustomersView();
   }
 }
