@@ -1,0 +1,23 @@
+# Blueprint لموقع استاتيكي على Render — معاينة ويب سريعة لتطبيق كرتي
+# (Flutter Web). راجع build_flutter_web.mjs لتفاصيل خطوات البناء.
+#
+# طريقة الاستخدام: على render.com اختر "New Blueprint" واربط هذا المستودع —
+# Render يكتشف هذا الملف تلقائياً وينشئ الخدمة بنفس الإعدادات بالأسفل.
+#
+# ⚠️ هذي نسخة معاينة فقط، وليست الإصدار الرسمي المخصص للنشر:
+#   - ميزة الاتصال المباشر بالميكروتيك غير مدعومة على الويب (تظهر رسالة
+#     واضحة بدل عطل بالبناء — راجع lib/services/routeros_api_stub.dart)
+#   - لازم تعبّي lib/config.dart بقيمة supabaseAnonKey الحقيقية قبل الرفع،
+#     وإلا يفشل تسجيل الدخول برسالة "تعذر تسجيل الدخول"
+services:
+  - type: web
+    name: karti-web-preview
+    runtime: static
+    buildCommand: node build_flutter_web.mjs
+    staticPublishPath: karti_app/build/web
+    routes:
+      # تطبيق صفحة واحدة (SPA) بتوجيه go_router — أي مسار غير موجود كملف
+      # فعلي يُعاد توجيهه لـ index.html عشان يتولى Flutter التوجيه الداخلي
+      - type: rewrite
+        source: /*
+        destination: /index.html
