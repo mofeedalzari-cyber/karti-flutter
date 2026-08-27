@@ -6,13 +6,11 @@ workflows:
     environment:
       flutter: stable
       java: 17
+      node: latest
     scripts:
-      - name: Get Flutter dependencies
+      - name: Build APK (نفس سكربت الأتمتة المحلي — ينشئ مشروع Flutter، ينسخ الملفات، ويبني)
         script: |
-          flutter pub get
-      - name: Build Release APK
-        script: |
-          flutter build apk --release
+          node build_flutter_apk.mjs
     artifacts:
-      - build/app/outputs/flutter-apk/app-release.apk
-      - build/app/outputs/**/*.apk
+      - karti_app/build/app/outputs/flutter-apk/app-release.apk
+      - karti_app/build/app/outputs/**/*.apk

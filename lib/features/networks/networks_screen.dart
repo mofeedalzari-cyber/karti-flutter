@@ -16,8 +16,7 @@ class NetworksScreen extends ConsumerWidget {
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (e, _) => Center(child: Text('خطأ: $e')),
       data: (profile) {
-        final isAdmin = profile?.role == Role.admin;
-        final canCreate = isAdmin || profile?.isSuperadmin == true;
+        final canCreate = profile?.isAdminOrAbove ?? false;
         return _NetworksBody(canCreate: canCreate, isSuperadmin: profile?.isSuperadmin ?? false);
       },
     );

@@ -115,7 +115,7 @@ class _SalesScreenState extends ConsumerState<SalesScreen> {
   Widget build(BuildContext context) {
     final profileAsync = ref.watch(profileProvider);
     final salesAsync = ref.watch(salesListProvider);
-    final isAdmin = profileAsync.value?.role == Role.admin;
+    final isAdmin = profileAsync.value?.isAdminOrAbove ?? false;
 
     return Scaffold(
       appBar: AppBar(title: Text(isAdmin ? 'جميع المبيعات' : 'مبيعاتي')),

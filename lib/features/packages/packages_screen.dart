@@ -20,7 +20,7 @@ class PackagesScreen extends ConsumerWidget {
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (e, _) => Center(child: Text('خطأ: $e')),
       data: (profile) {
-        final canManage = profile?.role == Role.admin || profile?.isSuperadmin == true;
+        final canManage = profile?.isAdminOrAbove ?? false;
         return _PackagesBody(canManage: canManage, profile: profile);
       },
     );

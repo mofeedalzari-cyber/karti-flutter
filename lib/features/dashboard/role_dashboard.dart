@@ -16,7 +16,7 @@ class RoleDashboard extends ConsumerWidget {
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (e, _) => Center(child: Text('خطأ: $e')),
       data: (profile) {
-        final isAdmin = profile?.role == Role.admin || profile?.isSuperadmin == true;
+        final isAdmin = profile?.isAdminOrAbove ?? false;
         return isAdmin ? const DashboardScreen() : const AgentHomeScreen();
       },
     );

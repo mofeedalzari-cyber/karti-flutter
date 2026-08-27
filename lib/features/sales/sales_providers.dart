@@ -136,5 +136,5 @@ Future<({int ok, int fail})> bulkDeleteSales(List<String> ids, {required bool de
 
 bool canModifySale(SaleRow s, Profile? profile) {
   if (profile == null) return false;
-  return profile.role == Role.admin || s.agentId == profile.id;
+  return profile.isAdminOrAbove || s.agentId == profile.id;
 }

@@ -70,7 +70,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       _InfoRow(label: 'اسم المستخدم', value: profile.phone ?? profile.username),
-                      _InfoRow(label: 'نوع الحساب', value: profile.role == Role.admin ? 'مدير' : 'وكيل'),
+                      _InfoRow(label: 'نوع الحساب', value: profile.isSuperadmin ? 'سوبر أدمن' : (profile.role == Role.admin ? 'مدير' : 'وكيل')),
                       _InfoRow(label: 'الحالة', value: profile.isActive ? 'مفعّل' : 'موقوف'),
                       const SizedBox(height: 12),
                       TextField(controller: _nameCtrl, decoration: const InputDecoration(labelText: 'الاسم الكامل')),
@@ -90,7 +90,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   ),
                 ),
               ),
-              if (profile.role == Role.admin) ...[
+              if (profile.isAdminOrAbove) ...[
                 const SizedBox(height: 16),
                 _BackupRestoreCard(isAdmin: true),
                 const SizedBox(height: 16),
